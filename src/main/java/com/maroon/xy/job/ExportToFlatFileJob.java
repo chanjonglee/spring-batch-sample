@@ -38,28 +38,21 @@ public class ExportToFlatFileJob {
 
 	@Bean
 	public Job exportFileJob(Step step1) {
-
 		return jobBuilderFactory.get("ExportToFlatFileJob").flow(step1).end().build();
-
 	}
 
 	@Bean
 	public Job duplicateExportFileJobJob(Step step1) {
-
 		return jobBuilderFactory.get("duplicateExportFileJobJob").flow(step1).end().build();
-
 	}
 
 	@Bean(destroyMethod = "")
 	public ItemReader<Employee> reader() {
-
+		
 		JpaPagingItemReader<Employee> reader = new JpaPagingItemReader<>();
-
 		reader.setEntityManagerFactory(entityManager.getEntityManagerFactory());
 		reader.setQueryString("select t from Employee t");
-
 		return reader;
-
 	}
 
 	@Bean
@@ -73,7 +66,6 @@ public class ExportToFlatFileJob {
 
 		return new FlatFileItemWriterBuilder<Employee>().name("createFile")
 				.resource(new ClassPathResource("employees.txt")).lineAggregator(lineAggregator).build();
-
 	}
 
 	@Bean
